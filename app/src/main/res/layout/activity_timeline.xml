@@ -1,21 +1,103 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".Timeline">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	tools:context=".Timeline">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="@integer/ratio_main_content">
 
-    <TextView
-        android:text="this is a new string!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+		<!-- To be replaced by ListView-->
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
 
-</RelativeLayout>
+			<!-- An entry preview -->
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="80dp"
+				android:orientation="horizontal"
+				android:background="#FF3333" >
+
+				<LinearLayout
+					android:id="@+id/entry_preview_image_wrapper"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:orientation="horizontal">
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="@integer/ratio_entry_preview_date">
+
+					<TextView
+						android:id="@+id/entry_preview_date_day"
+						android:text="21"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="@integer/ratio_entry_preview_content">
+
+					<TextView
+						android:text="Diary Entry Title"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"/>
+				</LinearLayout>
+			</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="80dp"
+			android:orientation="horizontal"
+			android:background="#FF8803" ></LinearLayout>
+		</LinearLayout>
+
+	</ScrollView>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="@integer/ratio_main_nav"
+		android:orientation="horizontal">
+
+		<Button
+			android:id="@+id/nav_new_entry"
+			android:text="New"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@integer/ratio_nav_btn"/>
+		<Button
+			android:id="@+id/nav_new_entry_photo"
+			android:text="Photo"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@integer/ratio_nav_btn"/>
+		<Button
+			android:id="@+id/nav_calendar"
+			android:text="Cal"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@integer/ratio_nav_btn"/>
+		<Button
+			android:id="@+id/nav_timeline"
+			android:text="Home"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@integer/ratio_nav_btn"/>
+
+	</LinearLayout>
+
+</LinearLayout>
