@@ -19,11 +19,37 @@
 
 			<!-- An entry preview -->
 			<LinearLayout
+				android:layout_gravity="center"
 				android:layout_width="match_parent"
-				android:layout_height="80dp"
-				android:orientation="horizontal"
-				android:background="#FF3333" >
+				android:layout_height="@dimen/entry_preview_height"
+				android:orientation="horizontal">
 
+				<!-- Date Block -->
+				<LinearLayout
+					android:layout_width="@dimen/entry_preview_height"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:padding="10dp">
+
+					<TextView
+							android:text="MON"
+						android:textStyle="bold"
+						android:textColor="#666666"
+						android:gravity="center"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content" />
+					<TextView
+							android:text="21"
+						android:id="@+id/entry_preview_date_day"
+						android:textSize="36sp"
+						android:textStyle="bold"
+						android:gravity="center"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+
+				</LinearLayout>
+
+				<!-- Image Block -->
 				<LinearLayout
 					android:id="@+id/entry_preview_image_wrapper"
 					android:layout_width="wrap_content"
@@ -32,29 +58,26 @@
 
 				</LinearLayout>
 
+				<!-- Content Block -->
 				<LinearLayout
-					android:layout_width="0dp"
+					android:layout_gravity="center"
+					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:layout_weight="@integer/ratio_entry_preview_date">
+					android:orientation="vertical"
+					android:padding="10dp">
 
 					<TextView
-						android:id="@+id/entry_preview_date_day"
-						android:text="21"
+							android:text="Diary Entry Title"
+						android:textStyle="bold"
+						android:textSize="16sp"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:gravity="center"/>
-
-				</LinearLayout>
-
-				<LinearLayout
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="@integer/ratio_entry_preview_content">
-
+						android:layout_marginBottom="5dp"/>
 					<TextView
-						android:text="Diary Entry Title"
+						android:text="This is a area to show diary entry preview. It shows only a small ..."
 						android:layout_width="match_parent"
-						android:layout_height="match_parent"/>
+						android:layout_height="wrap_content"/>
+
 				</LinearLayout>
 			</LinearLayout>
 
