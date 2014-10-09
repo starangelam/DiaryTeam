@@ -4,7 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
-	tools:context=".Timeline">
+	tools:context=".TimelineFragment">
 
 	<ScrollView
 		android:layout_width="match_parent"
@@ -165,38 +165,4 @@
 		</LinearLayout>
 
 	</ScrollView>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="@integer/ratio_main_nav"
-		android:orientation="horizontal">
-
-		<Button
-			android:id="@+id/nav_new_entry"
-			android:text="New"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="@integer/ratio_nav_btn"/>
-		<Button
-			android:id="@+id/nav_new_entry_photo"
-			android:text="Photo"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="@integer/ratio_nav_btn"/>
-		<Button
-			android:id="@+id/nav_calendar"
-			android:text="Cal"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="@integer/ratio_nav_btn"/>
-		<Button
-			android:id="@+id/nav_timeline"
-			android:text="Home"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="@integer/ratio_nav_btn"/>
-
-	</LinearLayout>
-
 </LinearLayout>
