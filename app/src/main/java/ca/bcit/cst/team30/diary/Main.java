@@ -7,8 +7,10 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import ca.bcit.cst.team30.diary.adapter.SectionsPagerAdapter;
 
 
@@ -83,7 +85,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -92,10 +94,15 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		switch (id) {
+			case R.id.action_settings:
+				return true;
+			case R.id.action_new_entry:
+				Toast.makeText(this, "Create a new diary entry", Toast.LENGTH_LONG).show();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

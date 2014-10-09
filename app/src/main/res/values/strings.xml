@@ -6,5 +6,6 @@
     <string name="title_activity_main">Home</string>
     <string name="title_section1">Timeline</string>
     <string name="title_section2">Calendar</string>
+	<string name="action_new_entry">New Entry</string>
 
 </resources>
