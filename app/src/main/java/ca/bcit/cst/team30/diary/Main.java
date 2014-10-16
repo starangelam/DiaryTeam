@@ -55,6 +55,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 		int tabNum = mSectionsPagerAdapter.getCount();
 		for (int i = 0; i < tabNum; i++) {
 			ActionBar.Tab tab = actionBar.newTab();
+			// TODO replace tab names with icons
 			tab.setText(mSectionsPagerAdapter.getPageTitle(i));
 			tab.setTabListener(this);
 			actionBar.addTab(tab);

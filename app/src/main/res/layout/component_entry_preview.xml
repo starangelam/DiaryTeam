@@ -1,0 +1,67 @@
+<!-- Diary Entry's Preview Block -->
+	<!-- Q&A is gravity center necessary? What's it for? -->
+	<!-- TODO variablize bg color, font etc-->
+	<!-- TODO remove placeholder text -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_gravity="center"
+			  android:orientation="horizontal"
+			  android:layout_width="match_parent"
+			  android:layout_height="@dimen/entry_preview_height">
+
+		<!-- Date Block -->
+		<LinearLayout
+			android:layout_width="@dimen/entry_preview_height"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:padding="10dp">
+
+			<TextView
+				android:text="MON"
+				android:textStyle="bold"
+				android:textColor="#666666"
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+			<TextView
+				android:text="21"
+				android:id="@+id/entry_preview_date_day"
+				android:textSize="36sp"
+				android:textStyle="bold"
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+
+		</LinearLayout>
+
+		<!-- Image Block -->
+		<LinearLayout
+			android:id="@+id/entry_preview_image_wrapper"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:orientation="horizontal">
+
+		</LinearLayout>
+
+		<!-- Content Block -->
+		<LinearLayout
+			android:layout_gravity="center"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:padding="10dp">
+
+			<TextView
+				android:text="Diary Entry Title"
+				android:textStyle="bold"
+				android:textSize="16sp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"/>
+			<TextView
+				android:text="This is a area to show diary entry preview. It shows only a small ..."
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+
+		</LinearLayout>
+
+</LinearLayout>
