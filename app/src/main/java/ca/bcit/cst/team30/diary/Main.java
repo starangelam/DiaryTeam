@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 import ca.bcit.cst.team30.diary.adapter.SectionsPagerAdapter;
 
@@ -121,4 +122,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 	}
 
+	public void viewEntry(View view) {
+
+	}
 }
