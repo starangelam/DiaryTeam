@@ -1,19 +1,18 @@
 package ca.bcit.cst.team30.diary;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import ca.bcit.cst.team30.diary.access.DatabaseHandler;
-import ca.bcit.cst.team30.diary.model.Entry;
 
 import java.util.List;
+
+import ca.bcit.cst.team30.diary.access.DatabaseHandler;
+import ca.bcit.cst.team30.diary.model.Entry;
 
 
 public class TimelineFragment extends Fragment {
@@ -85,4 +84,10 @@ public class TimelineFragment extends Fragment {
 		}
 
 	}
+
+    public void viewEntryPage(View view) {
+        Intent intent = new Intent(getActivity(), ViewEntry.class);
+        startActivity(intent);
+    }
+
 }

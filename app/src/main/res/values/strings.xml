@@ -6,6 +6,8 @@
     <string name="title_activity_main">Home</string>
     <string name="title_section1">Timeline</string>
     <string name="title_section2">Calendar</string>
-	<string name="action_new_entry">New Entry</string>
+    <string name="action_new_entry">New Entry</string>
+    <string name="title_activity_view_entry">ViewEntry</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
