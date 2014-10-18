@@ -1,27 +1,32 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 public class ViewEntry extends Activity {
-
+    private View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entry);
 
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = vi.inflate(R.layout.activity_view_entry, null);
+        ViewGroup entryParent = (ViewGroup) findViewById(R.id.entry_container);
 
-        TextView content = (TextView) view.findViewById(R.id.content);
-        content.setText("This is some sample text");
+        view = LayoutInflater.from(this).inflate(R.layout.title, entryParent, true);
+        TextView title = (TextView) view.findViewById(R.id.entry_title);
+        title.setText("Insert Title here");
+
+        //ViewGroup contentParent = (ViewGroup) findViewById(R.id.content_container);
+
+        view = LayoutInflater.from(this).inflate(R.layout.content, entryParent, true);
+        TextView content = (TextView) view.findViewById(R.id.entry_content);
+        content.setText("Insert\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Content here");
     }
 
 

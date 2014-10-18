@@ -1,7 +1,6 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,10 +83,5 @@ public class TimelineFragment extends Fragment {
 		}
 
 	}
-
-    public void viewEntryPage(View view) {
-        Intent intent = new Intent(getActivity(), ViewEntry.class);
-        startActivity(intent);
-    }
 
 }

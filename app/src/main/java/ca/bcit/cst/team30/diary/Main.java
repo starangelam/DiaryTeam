@@ -3,6 +3,7 @@ package ca.bcit.cst.team30.diary;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
@@ -122,7 +123,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 	}
 
-	public void viewEntry(View view) {
-
-	}
+    public void viewEntry(View view) {
+        Intent intent = new Intent(this, ViewEntry.class);
+        startActivity(intent);
+    }
 }
