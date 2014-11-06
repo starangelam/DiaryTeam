@@ -18,11 +18,15 @@ public class Entry {
 	private String content;
 	private Date creationDate;
 
+	public Entry() {
+		this.creationDate = cal.getTime();
+	}
+
 	/**
 	 * Constructor for quickly constructing an entry with required info when not reading from database.
 	 *
-	 * @param title        Entry title
-	 * @param content      Entry text content
+	 * @param title   Entry title
+	 * @param content Entry text content
 	 */
 	public Entry(final String title, final String content) {
 		this.title = title;

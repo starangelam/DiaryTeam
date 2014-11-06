@@ -10,15 +10,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ca.bcit.cst.team30.diary.access.DatabaseHandler;
+import ca.bcit.cst.team30.diary.access.EntryDataSource;
 import ca.bcit.cst.team30.diary.model.Entry;
 
 
 public class TimelineFragment extends Fragment {
 
+	private EntryDataSource datasource;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
+
+		datasource = new EntryDataSource(getActivity());
+		datasource.open();
 
 		View rootView = inflater.inflate(R.layout.activity_timeline, container, false);
 
@@ -43,6 +48,21 @@ public class TimelineFragment extends Fragment {
 		return rootView;
 	}
 
+
+	@Override
+	public void onResume()
+	{
+		datasource.open();
+		super.onResume();
+	}
+
+	@Override
+	public void onPause()
+	{
+		datasource.close();
+		super.onPause();
+	}
+
 	private void addEntry(View v) {
 		TextView fDate = (TextView) getView().findViewById(R.id.creationDate);
 		TextView fTitle = (TextView) getView().findViewById(R.id.title);
@@ -53,26 +73,23 @@ public class TimelineFragment extends Fragment {
 		Entry entry = new Entry(title, content);
 
 		// test add new entry
-		DatabaseHandler db = new DatabaseHandler(getActivity());
-		db.addEntry(entry);
+		datasource.createEntry(entry);
 		fDate.setText("Last entry created on: " + entry.getCreationDate());
 	}
 
 	private void display(View v) {
-		DatabaseHandler db = new DatabaseHandler(getActivity());
-
 		TextView fTitle = (TextView) getView().findViewById(R.id.title);
 		TextView fContent = (TextView) getView().findViewById(R.id.content);
 		TextView fdump = (TextView) getView().findViewById(R.id.dump);
 
 		// test get 1 entry by id
-		Entry entry = db.getEntry(1);
-		fTitle.setText(entry.getTitle());
-		fContent.setText(entry.getContent());
+//		Entry entry = datasource.getEntry(1);
+//		fTitle.setText(entry.getTitle());
+//		fContent.setText(entry.getContent());
 
 		// test get all entries
 		fdump.setText("");
-		List<Entry> all = db.getAllEntries();
+		List<Entry> all = datasource.getAllEntries();
 		for (Entry e : all) {
 			fdump.append("entry id = " + e.getId() + "\n");
 			fdump.append("entry title = " + e.getTitle() + "\n");

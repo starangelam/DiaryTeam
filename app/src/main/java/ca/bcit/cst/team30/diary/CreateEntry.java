@@ -1,23 +1,40 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import ca.bcit.cst.team30.diary.access.DatabaseHandler;
+import ca.bcit.cst.team30.diary.access.EntryDataSource;
 import ca.bcit.cst.team30.diary.model.Entry;
 
 public class CreateEntry extends Activity {
+	private EntryDataSource datasource;
 
-    @Override
+
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_entry);
+
+		datasource = new EntryDataSource(this);
+		datasource.open();
     }
 
+	@Override
+	public void onResume()
+	{
+		datasource.open();
+		super.onResume();
+	}
+
+	@Override
+	public void onPause()
+	{
+		datasource.close();
+		super.onPause();
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,18 +61,20 @@ public class CreateEntry extends Activity {
     }
 
     public void createEntry() {
-        DatabaseHandler db = new DatabaseHandler(this);
-        String result;
-        String title;
-        EditText contentTitle = (EditText) findViewById(R.id.composeTitle);
-        EditText content = (EditText) findViewById(R.id.composeContent);
+		final EditText contentTitle;
+        final EditText content;
+		final String result;
+		final String title;
+		final Entry entry;
+
+		contentTitle = (EditText) findViewById(R.id.composeTitle);
+		content = (EditText) findViewById(R.id.composeContent);
         result = content.getText().toString();
         title = contentTitle.getText().toString();
-        Entry entry = new Entry(title, result);
 
-        db.addEntry(entry);
+        entry = new Entry(title, result);
+        datasource.createEntry(entry);
 
-        Intent intent = new Intent(this, Main.class);
-        startActivity(intent);
+        finish();
     }
 }

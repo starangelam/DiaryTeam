@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
+import ca.bcit.cst.team30.diary.access.EntryDataSource;
 import ca.bcit.cst.team30.diary.adapter.SectionsPagerAdapter;
 
 
@@ -35,12 +35,20 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
 	private ActionBar actionBar;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		setupTabbedViews();
 
+		// ??? enable or disable?
+		actionBar.setHomeButtonEnabled(false);
+
+	}
+
+	private void setupTabbedViews() {
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager(), this);
@@ -48,9 +56,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-
 		actionBar = getActionBar();
-		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		// Adding Tabs
@@ -82,7 +88,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 				};
 		mViewPager.setOnPageChangeListener(pageChangeListener);
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,8 +128,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 	}
 
-    public void viewEntry(View view) {
-        Intent intent = new Intent(this, CreateEntry.class);
-        startActivity(intent);
-    }
+	public void viewEntry(View view) {
+		Intent intent = new Intent(this, CreateEntry.class);
+		startActivity(intent);
+	}
 }
