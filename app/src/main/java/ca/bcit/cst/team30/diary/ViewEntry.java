@@ -16,17 +16,21 @@ public class ViewEntry extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entry);
 
+        // Creating parent viewgroup for other views to be added on
         ViewGroup entryParent = (ViewGroup) findViewById(R.id.entry_container);
 
+        // Title
         view = LayoutInflater.from(this).inflate(R.layout.title, entryParent, true);
         TextView title = (TextView) view.findViewById(R.id.entry_title);
         title.setText("Insert Title here");
 
-        //ViewGroup contentParent = (ViewGroup) findViewById(R.id.content_container);
-
+        // Scrollable text content
         view = LayoutInflater.from(this).inflate(R.layout.content, entryParent, true);
         TextView content = (TextView) view.findViewById(R.id.entry_content);
         content.setText("Insert\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Content here");
+
+        // Scrollable image content
+        view = LayoutInflater.from(this).inflate(R.layout.images, entryParent, true);
     }
 
 
