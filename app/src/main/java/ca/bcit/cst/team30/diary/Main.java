@@ -124,7 +124,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	}
 
     public void viewEntry(View view) {
-        Intent intent = new Intent(this, ViewEntry.class);
+        Intent intent = new Intent(this, CreateEntry.class);
         startActivity(intent);
     }
 }

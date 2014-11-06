@@ -9,5 +9,7 @@
     <string name="action_new_entry">New Entry</string>
     <string name="title_activity_view_entry">ViewEntry</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_create_entry">CreateEntry</string>
+    <string name="create_entry_title">Title: </string>
 
 </resources>

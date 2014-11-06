@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ca.bcit.cst.team30.diary.CreateEntry" >
+
+    <item android:id="@+id/composeEntry"
+        android:title="ComposeEntry"
+        android:icon="@drawable/ic_launcher"
+        android:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>

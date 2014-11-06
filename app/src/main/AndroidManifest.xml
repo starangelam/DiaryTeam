@@ -20,6 +20,10 @@
             android:name=".ViewEntry"
             android:label="@string/title_activity_view_entry" >
         </activity>
+        <activity
+            android:name=".CreateEntry"
+            android:label="@string/title_activity_create_entry" >
+        </activity>
     </application>
 
 </manifest>
