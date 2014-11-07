@@ -9,19 +9,35 @@
     android:orientation="vertical"
     tools:context="ca.bcit.cst.team30.diary.CreateEntry">
 
+    <!-- Just an example, taken from entry_preview_month-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-
+        android:background="#666666"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp">
         <TextView
-            android:text="@string/create_entry_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="September, 2014"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <EditText
-            android:layout_width="150dp"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/composeTitle"/>
+            android:id="@+id/composeTitle"
+            android:hint="Title..."
+            android:background="#F4F4EF"
+            android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
 
@@ -30,9 +46,17 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:gravity="top"
+            android:minLines="8"
+            android:maxLength="10000"
+            android:maxLines="150"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/composeContent"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/composeContent"
+            android:hint="Content..."
+            android:background="#F4F4EF"/>
 
     </ScrollView>
 
