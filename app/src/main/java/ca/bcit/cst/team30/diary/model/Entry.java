@@ -99,4 +99,15 @@ public class Entry {
 	public String getDayOfWeek() {
 		return android.text.format.DateFormat.format("EEE", creationDate).toString();
 	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder();
+
+		sb.append("Title: ").append(title).append('\n');
+		sb.append("Date: " ).append(creationDate.toString()).append('\n');
+		sb.append("Content: " ).append(content).append('\n');
+
+		return sb.toString();
+	}
 }

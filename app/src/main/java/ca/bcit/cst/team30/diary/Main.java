@@ -106,7 +106,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 			case R.id.action_settings:
 				return true;
 			case R.id.action_new_entry:
-				Toast.makeText(this, "Create a new diary entry", Toast.LENGTH_LONG).show();
+				final Intent intent = new Intent(this, CreateEntry.class);
+				startActivity(intent);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -128,8 +129,4 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 	}
 
-	public void viewEntry(View view) {
-		Intent intent = new Intent(this, CreateEntry.class);
-		startActivity(intent);
-	}
 }

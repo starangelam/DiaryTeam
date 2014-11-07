@@ -6,43 +6,6 @@
 	android:orientation="vertical"
 	tools:context=".TimelineFragment">
 
-	<TextView
-		android:id="@+id/creationDate"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
-	<EditText
-		android:id="@+id/title"
-		android:text="Test add Title"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
-	<EditText
-		android:id="@+id/content"
-		android:text="Test add content. "
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
-	<Button
-		android:id="@+id/add_entry"
-		android:text="Add"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
-
-
-	<LinearLayout
-		android:gravity="center"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-		<Button
-			android:id="@+id/display"
-			android:text="Preview All"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-		<Button
-			android:id="@+id/view_entry"
-			android:text="View One"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:onClick="viewEntry"/>
-	</LinearLayout>
 	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
