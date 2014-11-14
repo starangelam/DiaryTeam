@@ -29,6 +29,7 @@ public class ViewEntry extends Activity {
     private View view;
 
 	private EntryDataSource dataSource;
+	private Entry entry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class ViewEntry extends Activity {
 
 
 		final long entryId = getIntent().getExtras().getLong(TimelineFragment.EXTRA_ID);
-		final Entry entry = dataSource.getEntry(entryId);
+		entry = dataSource.getEntry(entryId);
 
 		// TODO bug gridView return null pointer exception
 //        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridimages);

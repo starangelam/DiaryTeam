@@ -2,18 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ca.bcit.cst.team30.diary.CreateEntry" >
 
-    <item android:id="@+id/composeEntry"
+	<item android:id="@+id/getphoto"
+		  android:title="GrabPhoto"
+		  android:icon="@drawable/ic_action_camera"
+		  android:showAsAction="ifRoom" />
+
+	<item android:id="@+id/composeEntry"
         android:title="ComposeEntry"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_action_save_entry"
         android:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
-
-    <item android:id="@+id/getphoto"
-        android:title="GrabPhoto"
-        android:icon="@drawable/ic_action_new_entry"
-        android:showAsAction="ifRoom" />
 </menu>
