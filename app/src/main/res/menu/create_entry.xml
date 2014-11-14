@@ -11,4 +11,9 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+
+    <item android:id="@+id/getphoto"
+        android:title="GrabPhoto"
+        android:icon="@drawable/ic_action_new_entry"
+        android:showAsAction="ifRoom" />
 </menu>

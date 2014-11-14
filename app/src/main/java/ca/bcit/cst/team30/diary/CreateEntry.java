@@ -1,16 +1,31 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import ca.bcit.cst.team30.diary.access.EntryDataSource;
 import ca.bcit.cst.team30.diary.model.Entry;
 
 public class CreateEntry extends Activity {
 	private EntryDataSource datasource;
+    String mCurrentPhotoPath;
+    File photoFile;
 
 
 	@Override
@@ -55,9 +70,78 @@ public class CreateEntry extends Activity {
             case R.id.composeEntry:
                 createEntry();
                 return true;
+            case R.id.getphoto:
+                getPhoto();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void getPhoto() {
+
+        final CharSequence[] items = {"From Gallery", "From Camera"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Photo Options ");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                if(item == 0) {
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    photoFile = null;
+                    try {
+                        photoFile = createImageFile();
+                    } catch (IOException ex) {
+                        // Error occurred while creating the File
+                        Log.d("LOG", "Could not create file");
+                    }
+                    // Continue only if the File was successfully created
+                    if (photoFile != null) {
+                        pickPhoto.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                        startActivityForResult(pickPhoto, 1);
+                    }
+
+                } else {
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    // Ensure that there's a camera activity to handle the intent
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        // Create the File where the photo should go
+                        photoFile = null;
+                        try {
+                            photoFile = createImageFile();
+                        } catch (IOException ex) {
+                            // Error occurred while creating the File
+                            Log.d("LOG", "Could not create file");
+                        }
+                        // Continue only if the File was successfully created
+                        if (photoFile != null) {
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                                    Uri.fromFile(photoFile));
+                            startActivityForResult(takePictureIntent, 0);
+                        }
+                    }
+                }
+            }
+        }).show();
+    }
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        Log.d("LOG", "Entered create image process");
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        Log.d("LOG", "Grabbed storage");
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        Log.d("LOG", "Got the images");
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        Log.d("LOG", "Before return");
+        return image;
     }
 
     public void createEntry() {
@@ -76,5 +160,28 @@ public class CreateEntry extends Activity {
         datasource.createEntry(entry);
 
         finish();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        Log.d("LOG", "I'm at the start!");
+        ImageView imageview = (ImageView) findViewById(R.id.galleryphoto);
+        switch(requestCode) {
+            case 0:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = Uri.fromFile(photoFile);
+                    imageview.setImageURI(selectedImage);
+                    Log.d("LOG", "I'm at case 0!");
+                }
+
+                break;
+            case 1:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    imageview.setImageURI(selectedImage);
+                    Log.d("LOG", "I'm at case 1!");
+                }
+                break;
+        }
     }
 }

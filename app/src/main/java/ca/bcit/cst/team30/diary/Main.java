@@ -10,9 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-import ca.bcit.cst.team30.diary.access.EntryDataSource;
+
 import ca.bcit.cst.team30.diary.adapter.SectionsPagerAdapter;
 
 

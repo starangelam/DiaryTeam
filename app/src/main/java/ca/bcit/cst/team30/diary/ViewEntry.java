@@ -9,15 +9,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ViewEntry extends Activity {
+    Integer[] imageIDs = {
+            R.drawable.ic_launcher,
+            R.drawable.ic_launcher,
+            R.drawable.ic_launcher,
+            R.drawable.ic_launcher,
+            R.drawable.ic_launcher,
+            R.drawable.ic_launcher,
+            R.drawable.ic_launcher
+    };
     private View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entry);
+
+        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridimages);
+        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setExpanded(true);
 
         // Creating parent viewgroup for other views to be added on
         ViewGroup entryParent = (ViewGroup) findViewById(R.id.entry_container);
@@ -27,14 +41,13 @@ public class ViewEntry extends Activity {
         TextView title = (TextView) view.findViewById(R.id.entry_title);
         title.setText("Insert Title here");
 
+        view = LayoutInflater.from(this).inflate(R.layout.imagegrid, entryParent, true);
+
         // Scrollable text content
         view = LayoutInflater.from(this).inflate(R.layout.content, entryParent, true);
         TextView content = (TextView) view.findViewById(R.id.entry_content);
         content.setText("Insert\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Content here");
 
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridimages);
-        gridView.setAdapter(new ImageAdapter(this));
-        gridView.setExpanded(true);
     }
 
 
@@ -57,53 +70,43 @@ public class ViewEntry extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class ImageAdapter extends BaseAdapter {
+    public class ImageAdapter extends BaseAdapter
+    {
         private Context context;
 
-        public ImageAdapter(Context context) {
-            this.context = context;
+        public ImageAdapter(Context c)
+        {
+            context = c;
         }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View gridView;
-
-            if (convertView == null) {
-
-                gridView = new View(context);
-
-                // get layout from mobile.xml
-                gridView = inflater.inflate(R.layout.images, null);
-
-
-                // set image based on selected text
-                ImageView imageView = (ImageView) gridView
-                        .findViewById(R.id.gridimage);
-
-            } else {
-                gridView = (View) convertView;
-            }
-
-            return gridView;
-        }
-
-        @Override
+        //---returns the number of images---
         public int getCount() {
-            return 0;
+            return imageIDs.length;
         }
 
-        @Override
+        //---returns the ID of an item---
         public Object getItem(int position) {
-            return null;
+            return position;
         }
 
-        @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
+        //---returns an ImageView view---
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            ImageView imageView;
+            if (convertView == null) {
+                imageView = new ImageView(context);
+                imageView.setLayoutParams(new GridView.LayoutParams(185, 185));
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setPadding(5, 5, 5, 5);
+            } else {
+                imageView = (ImageView) convertView;
+            }
+            imageView.setImageResource(R.drawable.ic_launcher);
+            return imageView;
+        }
     }
 }
