@@ -1,12 +1,15 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ViewEntry extends Activity {
@@ -29,8 +32,9 @@ public class ViewEntry extends Activity {
         TextView content = (TextView) view.findViewById(R.id.entry_content);
         content.setText("Insert\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Content here");
 
-        // Scrollable image content
-        view = LayoutInflater.from(this).inflate(R.layout.images, entryParent, true);
+        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridimages);
+        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setExpanded(true);
     }
 
 
@@ -51,5 +55,55 @@ public class ViewEntry extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public class ImageAdapter extends BaseAdapter {
+        private Context context;
+
+        public ImageAdapter(Context context) {
+            this.context = context;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View gridView;
+
+            if (convertView == null) {
+
+                gridView = new View(context);
+
+                // get layout from mobile.xml
+                gridView = inflater.inflate(R.layout.images, null);
+
+
+                // set image based on selected text
+                ImageView imageView = (ImageView) gridView
+                        .findViewById(R.id.gridimage);
+
+            } else {
+                gridView = (View) convertView;
+            }
+
+            return gridView;
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
     }
 }

@@ -9,6 +9,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <com.example.ExpandableHeightGridView
+            android:id="@+id/gridimages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:horizontalSpacing="2dp"
+            android:isScrollContainer="false"
+            android:numColumns="4"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="20dp"/>
+
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
