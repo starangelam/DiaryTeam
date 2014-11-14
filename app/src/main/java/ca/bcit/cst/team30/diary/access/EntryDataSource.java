@@ -24,8 +24,7 @@ public class EntryDataSource {
 	private final String[] allColumns;
 	private SQLiteDatabase database;
 
-	// TODO bug - seconds are truncated
-	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
 
 	{
 		allColumns = new String[]
@@ -38,7 +37,6 @@ public class EntryDataSource {
 	}
 
 	public EntryDataSource(final Context context) {
-		// TODO pass cursorfactory for cursorAdapter? instead of null
 		dbHelper = new SQLiteHelper(context);
 	}
 
@@ -76,9 +74,11 @@ public class EntryDataSource {
 	}
 
 	public void deleteEntry(final Entry entry) {
-		final long id;
+		final long id = entry.getId();
+		deleteEntry(id);
+	}
 
-		id = entry.getId();
+	public void deleteEntry(final long id) {
 		Log.d("Info", "Entry deleted with id: " + id);
 		database.delete(SQLiteHelper.TABLE_ENTRIES,
 				SQLiteHelper.COLUMN_ID + " = " + id,
@@ -157,12 +157,13 @@ public class EntryDataSource {
 		entry.setId(cursor.getLong(0));
 		entry.setTitle(cursor.getString(1));
 		entry.setContent(cursor.getString(2));
+		String dateText = cursor.getString(3);
 		try {
-			Date date = dateFormat.parse(cursor.getString(3));
+			Log.d("DB stored date: ", dateText);
+			Date date = dateFormat.parse(dateText);
 			entry.setCreationDate(date);
 		} catch (ParseException e) {
-			Log.d("ERROR", "unable to convert date string to Date");
-			e.printStackTrace();
+			Log.d("EntryDataSource.ERROR", "unable to convert date string " + dateText + " to Date");
 		}
 
 		return (entry);

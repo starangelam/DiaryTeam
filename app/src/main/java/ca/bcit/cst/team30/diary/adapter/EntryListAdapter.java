@@ -1,7 +1,6 @@
 package ca.bcit.cst.team30.diary.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import ca.bcit.cst.team30.diary.R;
 import ca.bcit.cst.team30.diary.model.Entry;
+
+import java.util.List;
 
 /**
  * User: ama
@@ -21,9 +22,9 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
 	private static final String MORE_TEXT_SYMBOL = "...";
 
 	private Context mContext;
-	private Entry[] data = null;
+	private List<Entry> data = null;
 
-	public EntryListAdapter(Context context, Entry[] data) {
+	public EntryListAdapter(Context context, List<Entry> data) {
 		super(context, R.layout.component_entry_preview, data);
 
 		mContext = context;
@@ -40,7 +41,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.component_entry_preview, parent, false);
 
-		final Entry entry = data[position];
+		final Entry entry = data.get(position);
 
 		final TextView dayOfWeek;
 		final TextView dayOfMonth;
