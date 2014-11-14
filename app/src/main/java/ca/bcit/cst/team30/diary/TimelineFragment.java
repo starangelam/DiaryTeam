@@ -1,35 +1,38 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.Fragment;
+import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
 
 import ca.bcit.cst.team30.diary.access.EntryDataSource;
+import ca.bcit.cst.team30.diary.adapter.EntryListAdapter;
 import ca.bcit.cst.team30.diary.model.Entry;
 
 
-public class TimelineFragment extends Fragment {
+public class TimelineFragment extends ListFragment {
 
 	private EntryDataSource datasource;
-
-	private TextView dump; // TODO created for testing database, delete when not needed.
+	private ArrayAdapter<Entry> adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.activity_timeline, container, false);
 
 		datasource = new EntryDataSource(getActivity());
 		datasource.open();
 
-		View rootView = inflater.inflate(R.layout.activity_timeline, container, false);
+		List<Entry> all = datasource.getAllEntries();
+		adapter = new EntryListAdapter(getActivity(), all.toArray(new Entry[]{}));
+		setListAdapter(adapter);
 
-		dump = (TextView) rootView.findViewById(R.id.dump);
-		display();
 		return rootView;
 	}
 
@@ -38,7 +41,6 @@ public class TimelineFragment extends Fragment {
 	public void onResume()
 	{
 		datasource.open();
-		display();
 		super.onResume();
 	}
 
@@ -47,15 +49,6 @@ public class TimelineFragment extends Fragment {
 	{
 		datasource.close();
 		super.onPause();
-	}
-
-	private void display() {
-
-		List<Entry> all = datasource.getAllEntries();
-		for (Entry e : all) {
-			dump.append(e.toString());
-			dump.append("===========\n");
-		}
 	}
 
 }

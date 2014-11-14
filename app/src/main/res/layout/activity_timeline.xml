@@ -6,18 +6,9 @@
 	android:orientation="vertical"
 	tools:context=".TimelineFragment">
 
-	<ScrollView
+	<ListView
+		android:id="@android:id/list"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-		<TextView
-			android:id="@+id/dump"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
-	</ScrollView>
-
-	<!--<ListView-->
-	<!--android:id="@+id/entry_preview_list"-->
-	<!--android:layout_width="match_parent"-->
-	<!--android:layout_height="match_parent" />-->
+		android:layout_height="match_parent"/>
 
 </LinearLayout>

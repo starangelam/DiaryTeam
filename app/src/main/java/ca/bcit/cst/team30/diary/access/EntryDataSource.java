@@ -121,7 +121,7 @@ public class EntryDataSource {
 		final List<Entry> entries;
 		final Cursor cursor;
 
-		String orderBy = dbHelper.COLUMN_CREATION_DATE + " ASC";
+		String orderBy = dbHelper.COLUMN_CREATION_DATE + " DESC";
 
 		entries = new ArrayList<Entry>();
 		cursor = database.query(SQLiteHelper.TABLE_ENTRIES,

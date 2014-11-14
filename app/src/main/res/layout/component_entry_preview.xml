@@ -46,16 +46,18 @@
 			android:padding="10dp">
 
 			<TextView
-				android:text="Diary Entry Title"
+				android:id="@+id/entry_preview_title"
 				android:textStyle="bold"
 				android:textSize="16sp"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="5dp"/>
+				android:layout_marginBottom="5dp"
+				android:text="Diary Entry Title" />
 			<TextView
-				android:text="This is a area to show diary entry preview. It shows only a small ..."
+				android:id="@+id/entry_preview_body"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"/>
+				android:layout_height="wrap_content"
+				android:text="This is a area to show diary entry preview. It shows only a small ..." />
 
 		</LinearLayout>
 
