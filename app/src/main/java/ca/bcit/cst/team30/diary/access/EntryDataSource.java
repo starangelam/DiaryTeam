@@ -91,7 +91,7 @@ public class EntryDataSource {
 	 * @param id entry unique identifier
 	 * @return Entry with specified id.
 	 */
-	public Entry getEntry(int id) {
+	public Entry getEntry(long id) {
 		final Entry entry;
 		final Cursor cursor;
 
@@ -105,9 +105,7 @@ public class EntryDataSource {
 				null);
 
 		try {
-			while (!(cursor.isAfterLast())) {
-				cursor.moveToFirst();
-			}
+			cursor.moveToFirst();
 			entry = cursorToEntry(cursor);
 		} finally {
 			// make sure to close the cursor
@@ -159,7 +157,6 @@ public class EntryDataSource {
 		entry.setContent(cursor.getString(2));
 		String dateText = cursor.getString(3);
 		try {
-			Log.d("DB stored date: ", dateText);
 			Date date = dateFormat.parse(dateText);
 			entry.setCreationDate(date);
 		} catch (ParseException e) {

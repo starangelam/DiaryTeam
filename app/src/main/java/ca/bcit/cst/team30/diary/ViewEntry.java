@@ -3,6 +3,7 @@ package ca.bcit.cst.team30.diary;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import ca.bcit.cst.team30.diary.access.EntryDataSource;
+import ca.bcit.cst.team30.diary.model.Entry;
 
 public class ViewEntry extends Activity {
     Integer[] imageIDs = {
@@ -24,29 +27,41 @@ public class ViewEntry extends Activity {
             R.drawable.ic_launcher
     };
     private View view;
+
+	private EntryDataSource dataSource;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entry);
 
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridimages);
-        gridView.setAdapter(new ImageAdapter(this));
-        gridView.setExpanded(true);
+		dataSource = new EntryDataSource(this);
+		dataSource.open();
+
+
+
+		final long entryId = getIntent().getExtras().getLong(TimelineFragment.EXTRA_ID);
+		final Entry entry = dataSource.getEntry(entryId);
+
+		// TODO bug gridView return null pointer exception
+//        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridimages);
+//        gridView.setAdapter(new ImageAdapter(this));
+//        gridView.setExpanded(true);
 
         // Creating parent viewgroup for other views to be added on
-        ViewGroup entryParent = (ViewGroup) findViewById(R.id.entry_container);
+        final ViewGroup entryParent = (ViewGroup) findViewById(R.id.entry_container);
 
         // Title
         view = LayoutInflater.from(this).inflate(R.layout.title, entryParent, true);
-        TextView title = (TextView) view.findViewById(R.id.entry_title);
-        title.setText("Insert Title here");
+        final TextView title = (TextView) view.findViewById(R.id.entry_title);
+        title.setText(entry.getTitle());
 
         view = LayoutInflater.from(this).inflate(R.layout.imagegrid, entryParent, true);
 
         // Scrollable text content
         view = LayoutInflater.from(this).inflate(R.layout.content, entryParent, true);
-        TextView content = (TextView) view.findViewById(R.id.entry_content);
-        content.setText("Insert\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Content here");
+        final TextView content = (TextView) view.findViewById(R.id.entry_content);
+        content.setText(entry.getContent());
 
     }
 
@@ -109,4 +124,17 @@ public class ViewEntry extends Activity {
             return imageView;
         }
     }
+
+
+	@Override
+	public void onResume() {
+		dataSource.open();
+		super.onResume();
+	}
+
+	@Override
+	public void onPause() {
+		dataSource.close();
+		super.onPause();
+	}
 }

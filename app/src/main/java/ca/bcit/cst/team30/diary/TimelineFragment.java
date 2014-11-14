@@ -1,11 +1,10 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -18,6 +17,8 @@ import java.util.List;
 
 
 public class TimelineFragment extends ListFragment {
+
+	public static final String EXTRA_ID = "ca.bcit.cst.team30.diary.TimelineFragment.entry_id";
 
 	private EntryDataSource dataSource;
 	private ArrayAdapter<Entry> adapter;
@@ -38,6 +39,11 @@ public class TimelineFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView listView, View view, int position, long id) {
+		final Intent intent = new Intent(getActivity(), ViewEntry.class);
+		final Entry entry = adapter.getItem(position);
+		intent.putExtra(EXTRA_ID, entry.getId());
+
+		startActivity(intent);
 	}
 
 	private void setItemLongClickListener() {
