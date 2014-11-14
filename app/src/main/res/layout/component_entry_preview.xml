@@ -16,20 +16,15 @@
 			android:padding="10dp">
 
 			<TextView
-				android:text="MON"
-				android:textStyle="bold"
-				android:textColor="#666666"
-				android:gravity="center"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content" />
+				android:id="@+id/entry_preview_day_of_week"
+				style="@style/entry.preview.highlight"
+				android:textColor="@color/complementary"
+				android:text="MON" />
 			<TextView
-				android:text="21"
-				android:id="@+id/entry_preview_date_day"
+				android:id="@+id/entry_preview_day_of_month"
+				style="@style/entry.preview.highlight"
 				android:textSize="36sp"
-				android:textStyle="bold"
-				android:gravity="center"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"/>
+				android:text="21" />
 
 		</LinearLayout>
 
