@@ -13,7 +13,7 @@
 			android:layout_width="@dimen/entry_preview_height"
 			android:layout_height="match_parent"
 			android:orientation="vertical"
-			android:padding="10dp">
+			android:padding="5dp">
 
 			<TextView
 				android:id="@+id/entry_preview_day_of_week"
@@ -43,7 +43,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:orientation="vertical"
-			android:padding="10dp">
+			android:padding="5dp">
 
 			<TextView
 				android:id="@+id/entry_preview_title"
@@ -51,7 +51,7 @@
 				android:textSize="16sp"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="5dp"
+				android:layout_marginBottom="2dp"
 				android:text="Diary Entry Title" />
 			<TextView
 				android:id="@+id/entry_preview_body"
