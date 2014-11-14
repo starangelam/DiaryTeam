@@ -38,37 +38,41 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.component_entry_preview, parent, false);
-
-		final Entry entry = data.get(position);
-
-		final TextView dayOfWeek;
-		final TextView dayOfMonth;
-		final TextView title;
-		final TextView body;
+		final ViewHolder viewHolder;
 
 		final String weekText;
 		final String monthText;
 		final String titleText;
 		final String bodyText;
 
-		dayOfWeek = (TextView) rowView.findViewById(R.id.entry_preview_day_of_week);
-		dayOfMonth = (TextView) rowView.findViewById(R.id.entry_preview_day_of_month);
-		title = (TextView) rowView.findViewById(R.id.entry_preview_title);
-		body = (TextView) rowView.findViewById(R.id.entry_preview_body);
+		final Entry entry = data.get(position);
+
+		if (convertView == null) {
+			viewHolder = new ViewHolder();
+			final LayoutInflater inflater = LayoutInflater.from(getContext());
+			convertView = inflater.inflate(R.layout.component_entry_preview, parent, false);
+
+			viewHolder.dayOfWeek = (TextView) convertView.findViewById(R.id.entry_preview_day_of_week);
+			viewHolder.dayOfMonth = (TextView) convertView.findViewById(R.id.entry_preview_day_of_month);
+			viewHolder.title = (TextView) convertView.findViewById(R.id.entry_preview_title);
+			viewHolder.body = (TextView) convertView.findViewById(R.id.entry_preview_body);
+
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
 
 		weekText = entry.getDayOfWeek().toUpperCase();
 		monthText = Integer.toString(entry.getDayOfMoth());
 		titleText = truncatedText(entry.getTitle(), MAX_CHAR_PER_LINE);
 		bodyText = truncatedText(entry.getContent(), MAX_CHAR_PER_LINE * MAX_LINES_IN_BODY);
 
-		dayOfWeek.setText(weekText);
-		dayOfMonth.setText(monthText);
-		title.setText(titleText);
-		body.setText(bodyText);
+		viewHolder.dayOfWeek.setText(weekText);
+		viewHolder.dayOfMonth.setText(monthText);
+		viewHolder.title.setText(titleText);
+		viewHolder.body.setText(bodyText);
 
-		return rowView;
+		return convertView;
 	}
 
 	private String truncatedText(final String fullText, final int maxLength) {
@@ -84,4 +88,12 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
 	}
 
 
+	// View lookup cache - to improve performance
+	// please read this tutorial for detail - https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView#improving-performance-with-the-viewholder-pattern
+	private static class ViewHolder {
+		TextView dayOfWeek;
+		TextView dayOfMonth;
+		TextView title;
+		TextView body;
+	}
 }
