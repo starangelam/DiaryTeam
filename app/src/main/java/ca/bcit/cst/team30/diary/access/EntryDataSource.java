@@ -85,6 +85,28 @@ public class EntryDataSource {
 				null);
 	}
 
+	public int editEntry(final Entry entry) {
+		final ContentValues values;
+		final String ISOdate;
+		final int numRowsAffected;
+
+		ISOdate = dateFormat.format(entry.getCreationDate());
+
+		values = new ContentValues();
+		values.put(SQLiteHelper.COLUMN_TITLE, entry.getTitle());
+		values.put(SQLiteHelper.COLUMN_CONTENT, entry.getContent());
+		values.put(SQLiteHelper.COLUMN_CREATION_DATE, ISOdate);
+
+		numRowsAffected = database.update(
+				SQLiteHelper.TABLE_ENTRIES,
+				values,
+				SQLiteHelper.COLUMN_ID + " =?",
+				new String[] { String.valueOf(entry.getId()) }
+		);
+
+		return numRowsAffected;
+	}
+
 	/**
 	 * Get a diary entry from database by id.
 	 *
