@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import ca.bcit.cst.team30.diary.model.Entry;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import ca.bcit.cst.team30.diary.model.Entry;
 
 /**
  * Manage CRUD operation of Entry object in SQLite Database.
@@ -32,7 +33,8 @@ public class EntryDataSource {
 						SQLiteHelper.COLUMN_ID,
 						SQLiteHelper.COLUMN_TITLE,
 						SQLiteHelper.COLUMN_CONTENT,
-						SQLiteHelper.COLUMN_CREATION_DATE
+						SQLiteHelper.COLUMN_CREATION_DATE,
+                        SQLiteHelper.COLUMN_FILE_PATH
 				};
 	}
 
@@ -59,6 +61,7 @@ public class EntryDataSource {
 		values.put(SQLiteHelper.COLUMN_TITLE, entry.getTitle());
 		values.put(SQLiteHelper.COLUMN_CONTENT, entry.getContent());
 		values.put(SQLiteHelper.COLUMN_CREATION_DATE, ISOdate);
+        values.put(SQLiteHelper.COLUMN_FILE_PATH, entry.getFilePath());
 		insertId = database.insert(SQLiteHelper.TABLE_ENTRIES,
 				null,
 				values);
@@ -184,6 +187,7 @@ public class EntryDataSource {
 		} catch (ParseException e) {
 			Log.d("EntryDataSource.ERROR", "unable to convert date string " + dateText + " to Date");
 		}
+        entry.setContent(cursor.getString(4));
 
 		return (entry);
 	}

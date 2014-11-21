@@ -19,6 +19,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_TITLE;
 	public static final String COLUMN_CONTENT;
 	public static final String COLUMN_CREATION_DATE;
+    public static final String COLUMN_FILE_PATH;
 
 	static
 	{
@@ -30,13 +31,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		COLUMN_TITLE 	= "title";
 		COLUMN_CONTENT 	= "content";
 		COLUMN_CREATION_DATE = "creationDate";
+        COLUMN_FILE_PATH = "filePath";
 
 		DATABASE_CREATE  = "CREATE TABLE " +
 				TABLE_ENTRIES + "(" +
 				COLUMN_ID + " INTEGER PRIMARY KEY autoincrement, " +
 				COLUMN_TITLE + " TEXT not null, " +
 				COLUMN_CONTENT + " TEXT not null, " +
-				COLUMN_CREATION_DATE + " TEXT not null);";
+				COLUMN_CREATION_DATE + " TEXT not null, " +
+                COLUMN_FILE_PATH + "TEXT);";
 	}
 
 	public SQLiteHelper(final Context context)

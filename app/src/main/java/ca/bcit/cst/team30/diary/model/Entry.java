@@ -17,6 +17,7 @@ public class Entry {
 	private String title;
 	private String content;
 	private Date creationDate;
+    private String filePath;
 
 	public Entry() {
 		this.creationDate = cal.getTime();
@@ -28,10 +29,11 @@ public class Entry {
 	 * @param title   Entry title
 	 * @param content Entry text content
 	 */
-	public Entry(final String title, final String content) {
+	public Entry(final String title, final String content, final String filePath) {
 		this.title = title;
 		this.content = content;
 		this.creationDate = cal.getTime();
+        this.filePath = filePath;
 	}
 
 	/**
@@ -42,11 +44,12 @@ public class Entry {
 	 * @param content      Entry text content
 	 * @param creationDate date entry was created on
 	 */
-	public Entry(final long id, final String title, final String content, final Date creationDate) {
+	public Entry(final long id, final String title, final String content, final Date creationDate, final String filePath) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.creationDate = creationDate;
+        this.filePath = filePath;
 	}
 
 	public long getId() {
@@ -82,6 +85,10 @@ public class Entry {
 		cal.setTime(creationDate);
 	}
 
+    public String getFilePath() { return filePath; }
+
+    public void setFilePath(String filePath) { this.filePath = filePath; }
+
 	/**
 	 * Get day of month, derived property of creation date.
 	 *
@@ -107,6 +114,7 @@ public class Entry {
 		sb.append("Title: ").append(title).append('\n');
 		sb.append("Date: " ).append(creationDate.toString()).append('\n');
 		sb.append("Content: " ).append(content).append('\n');
+        sb.append("FilePath: " ).append(filePath).append('\n');
 
 		return sb.toString();
 	}

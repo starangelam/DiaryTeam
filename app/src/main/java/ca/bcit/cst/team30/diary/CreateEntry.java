@@ -125,7 +125,6 @@ public class CreateEntry extends Activity {
         }).show();
     }
 
-
     private File createImageFile() throws IOException {
         // Create an image file name
         Log.d("LOG", "Entered create image process");
@@ -156,12 +155,13 @@ public class CreateEntry extends Activity {
         result = content.getText().toString();
         title = contentTitle.getText().toString();
 
-        entry = new Entry(title, result);
+        entry = new Entry(title, result, mCurrentPhotoPath);
         datasource.createEntry(entry);
 
         finish();
     }
 
+    //Receiving data back from the photo intent
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         Log.d("LOG", "I'm at the start!");
