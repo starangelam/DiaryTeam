@@ -2,9 +2,8 @@ package ca.bcit.cst.team30.diary;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import ca.bcit.cst.team30.diary.access.EntryDataSource;
 import ca.bcit.cst.team30.diary.model.Entry;
 
@@ -39,30 +39,33 @@ public class ViewEntry extends Activity {
 		dataSource = new EntryDataSource(this);
 		dataSource.open();
 
-
-
 		final long entryId = getIntent().getExtras().getLong(TimelineFragment.EXTRA_ID);
 		entry = dataSource.getEntry(entryId);
 
-		// TODO bug gridView return null pointer exception
-//        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridimages);
-//        gridView.setAdapter(new ImageAdapter(this));
-//        gridView.setExpanded(true);
 
-        // Creating parent viewgroup for other views to be added on
-        final ViewGroup entryParent = (ViewGroup) findViewById(R.id.entry_container);
 
         // Title
-        view = LayoutInflater.from(this).inflate(R.layout.title, entryParent, true);
-        final TextView title = (TextView) view.findViewById(R.id.entry_title);
+        final TextView title = (TextView) findViewById(R.id.entry_title);
         title.setText(entry.getTitle());
 
-        view = LayoutInflater.from(this).inflate(R.layout.imagegrid, entryParent, true);
-
         // Scrollable text content
-        view = LayoutInflater.from(this).inflate(R.layout.content, entryParent, true);
-        final TextView content = (TextView) view.findViewById(R.id.entry_content);
+        final TextView content = (TextView) findViewById(R.id.entry_content);
         content.setText(entry.getContent());
+
+        // Image
+        /*try {
+            //ContextWrapper cw = new ContextWrapper(getApplicationContext());
+            /*File file = new File(entry.getFilePath());
+            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+            ImageView image = (ImageView) findViewById(R.id.entry_photo);
+            image.setImageBitmap(bitmap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }*/
+
+        Uri selectedImage = Uri.parse(entry.getFilePath());
+        ImageView image = (ImageView) findViewById(R.id.entry_photo);
+        image.setImageURI(selectedImage);
 
     }
 

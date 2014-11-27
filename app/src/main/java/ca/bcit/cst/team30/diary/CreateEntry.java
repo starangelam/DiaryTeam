@@ -25,7 +25,9 @@ import ca.bcit.cst.team30.diary.model.Entry;
 public class CreateEntry extends Activity {
 	private EntryDataSource datasource;
     String mCurrentPhotoPath;
+    String imageFileName;
     File photoFile;
+    Uri selectedImage;
 
 
 	@Override
@@ -127,19 +129,17 @@ public class CreateEntry extends Activity {
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        Log.d("LOG", "Entered create image process");
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
-        Log.d("LOG", "Grabbed storage");
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
 
-        Log.d("LOG", "Got the images");
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        Log.d("LOG", "Before return");
+        Log.d("LOG", mCurrentPhotoPath);
+
         return image;
     }
 
@@ -154,8 +154,9 @@ public class CreateEntry extends Activity {
 		content = (EditText) findViewById(R.id.composeContent);
         result = content.getText().toString();
         title = contentTitle.getText().toString();
+        Log.d("LOG", "Title: " + title + " Content: " + result);
 
-        entry = new Entry(title, result, mCurrentPhotoPath);
+        entry = new Entry(title, result, selectedImage.toString());
         datasource.createEntry(entry);
 
         finish();
@@ -169,7 +170,7 @@ public class CreateEntry extends Activity {
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = Uri.fromFile(photoFile);
+                    selectedImage = Uri.fromFile(photoFile);
                     imageview.setImageURI(selectedImage);
                     Log.d("LOG", "I'm at case 0!");
                 }
@@ -177,11 +178,12 @@ public class CreateEntry extends Activity {
                 break;
             case 1:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
+                    selectedImage = imageReturnedIntent.getData();
                     imageview.setImageURI(selectedImage);
                     Log.d("LOG", "I'm at case 1!");
                 }
                 break;
         }
     }
+
 }

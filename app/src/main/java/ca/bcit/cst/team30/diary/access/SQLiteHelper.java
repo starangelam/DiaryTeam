@@ -39,7 +39,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 				COLUMN_TITLE + " TEXT not null, " +
 				COLUMN_CONTENT + " TEXT not null, " +
 				COLUMN_CREATION_DATE + " TEXT not null, " +
-                COLUMN_FILE_PATH + "TEXT);";
+                COLUMN_FILE_PATH + " TEXT);";
 	}
 
 	public SQLiteHelper(final Context context)

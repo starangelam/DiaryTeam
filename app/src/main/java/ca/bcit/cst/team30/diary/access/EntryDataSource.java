@@ -99,6 +99,7 @@ public class EntryDataSource {
 		values.put(SQLiteHelper.COLUMN_TITLE, entry.getTitle());
 		values.put(SQLiteHelper.COLUMN_CONTENT, entry.getContent());
 		values.put(SQLiteHelper.COLUMN_CREATION_DATE, ISOdate);
+        values.put(SQLiteHelper.COLUMN_FILE_PATH, entry.getFilePath());
 
 		numRowsAffected = database.update(
 				SQLiteHelper.TABLE_ENTRIES,
@@ -187,7 +188,7 @@ public class EntryDataSource {
 		} catch (ParseException e) {
 			Log.d("EntryDataSource.ERROR", "unable to convert date string " + dateText + " to Date");
 		}
-        entry.setContent(cursor.getString(4));
+        entry.setFilePath(cursor.getString(4));
 
 		return (entry);
 	}
