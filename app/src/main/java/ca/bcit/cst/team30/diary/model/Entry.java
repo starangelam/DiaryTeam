@@ -118,4 +118,13 @@ public class Entry {
 
 		return sb.toString();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Entry) {
+			final Entry entry2 = (Entry) obj;
+			return entry2.getId() == id;
+		}
+		return false;
+	}
 }

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import ca.bcit.cst.team30.diary.access.EntryDataSource;
@@ -32,7 +33,7 @@ public class TimelineFragment extends ListFragment {
 	public static final int DELETE = 2;
 
 	private EntryDataSource dataSource;
-	private ArrayAdapter<Entry> adapter;
+	private EntryListAdapter adapter;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -61,13 +62,11 @@ public class TimelineFragment extends ListFragment {
 		getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
 				boolean consumedLongClick = false;
 
-				final Entry entry = adapter.getItem(position);
-				dataSource.deleteEntry(entry);
-				adapter.remove(entry);
-				adapter.notifyDataSetChanged();
+				dataSource.deleteEntry(id);
+				adapter.remove(position);
 
 				Toast.makeText(getActivity(), "Entry deleted", Toast.LENGTH_SHORT).show();
 
@@ -80,27 +79,18 @@ public class TimelineFragment extends ListFragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d("debug", "result returned.");
 		if (requestCode == REQUEST_CODE_VIEW_ENTRY && resultCode == Activity.RESULT_OK) {
-			long id = data.getLongExtra(EXTRA_ID, -1);
-			updateList(id, UPDATE);
+			updateList(-1, UPDATE);
 		}
 	}
 
 	public void updateList(final long id, final int action) {
-		final Entry entry = dataSource.getEntry(id);
 		switch (action) {
 			case CREATE:
-				adapter.add(entry);
+				adapter.add(dataSource.getEntry(id));
 				break;
 			case UPDATE:
-				// TODO not updating properly
+				adapter.update(dataSource.getAllEntries());
 				break;
 		}
-		adapter.sort(new Comparator<Entry>() {
-			@Override
-			public int compare(Entry entry, Entry entry2) {
-				return entry2.getCreationDate().compareTo(entry.getCreationDate());
-			}
-		});
-		adapter.notifyDataSetChanged();
 	}
 }
