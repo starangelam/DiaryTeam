@@ -13,6 +13,7 @@ import ca.bcit.cst.team30.diary.access.EntryDataSource;
 import ca.bcit.cst.team30.diary.adapter.EntryListAdapter;
 import ca.bcit.cst.team30.diary.model.Entry;
 
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -24,7 +25,7 @@ public class TimelineFragment extends ListFragment {
 	private ArrayAdapter<Entry> adapter;
 
 	@Override
-	public  void onActivityCreated(Bundle savedInstanceState) {
+	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
 		dataSource = new EntryDataSource(getActivity());
@@ -77,4 +78,18 @@ public class TimelineFragment extends ListFragment {
 		super.onPause();
 	}
 
+	public void updateListAfterCreate(final long id) {
+		Log.d("debug", "updating list.");
+		dataSource.open();
+		final Entry entry = dataSource.getEntry(id);
+		adapter.add(entry);
+		adapter.sort(new Comparator<Entry>() {
+			@Override
+			public int compare(Entry entry, Entry entry2) {
+				return entry2.getCreationDate().compareTo(entry.getCreationDate());
+			}
+		});
+		adapter.notifyDataSetChanged();
+		dataSource.close();
+	}
 }

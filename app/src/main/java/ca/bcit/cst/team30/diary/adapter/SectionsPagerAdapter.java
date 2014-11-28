@@ -15,8 +15,10 @@ import java.util.Locale;
  * one of the sections/tabs/pages.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
-	final int PAGE_COUNT = 2;
-	Context context;
+	public static final int TIMELINE_POS = 0;
+
+	private final int PAGE_COUNT = 2;
+	private Context context;
 
 	public SectionsPagerAdapter(FragmentManager fm, Context nContext) {
 		super(fm);
@@ -28,7 +30,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 		// getItem is called to instantiate the fragment for the given page.
 		// Return a PlaceholderFragment (defined as a static inner class below).
 		switch (position) {
-			case 0:
+			case TIMELINE_POS:
 				return new TimelineFragment();
 			case 1:
 				return new TimelineFragment();

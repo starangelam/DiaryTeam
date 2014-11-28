@@ -2,19 +2,26 @@ package ca.bcit.cst.team30.diary;
 
 
 import android.app.ActionBar;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import ca.bcit.cst.team30.diary.adapter.SectionsPagerAdapter;
 
 
 public class Main extends FragmentActivity implements ActionBar.TabListener {
+
+	public static final String EXTRA_MODIFIED_ENTRY_ID = "ca.bcit.cst.team30.diary.entry_id";
+	public static final String TIMELINE_TAG_NAME = "android:switcher:" + R.id.pager + ':'
+			+ SectionsPagerAdapter.TIMELINE_POS;
+
+	private static final int REQUEST_CODE_NEW_ENTRY = 1;
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -24,13 +31,12 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	 * may be best to switch to a
 	 * {@link android.support.v13.app.FragmentStatePagerAdapter}.
 	 */
-	SectionsPagerAdapter mSectionsPagerAdapter;
+	private SectionsPagerAdapter mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
-
+	private ViewPager mViewPager;
 	private ActionBar actionBar;
 
 
@@ -61,7 +67,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 		int tabNum = mSectionsPagerAdapter.getCount();
 		for (int i = 0; i < tabNum; i++) {
 			ActionBar.Tab tab = actionBar.newTab();
-			// TODO replace tab names with icons
 			tab.setText(mSectionsPagerAdapter.getPageTitle(i));
 			tab.setTabListener(this);
 			actionBar.addTab(tab);
@@ -104,8 +109,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 			case R.id.action_settings:
 				return true;
 			case R.id.action_new_entry:
-				final Intent intent = new Intent(this, CreateEntry.class);
-				startActivity(intent);
+				newEntry();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -127,4 +131,25 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 	}
 
+	public void newEntry() {
+		final Intent intent = new Intent(this, CreateEntry.class);
+		startActivityForResult(intent, REQUEST_CODE_NEW_ENTRY);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_CODE_NEW_ENTRY && resultCode == RESULT_OK) {
+			final FragmentManager fragmentManager;
+			final TimelineFragment timeline;
+			final long id;
+
+			Log.d("debug", "add new entry successful.");
+
+			fragmentManager = getFragmentManager();
+			id = data.getLongExtra(EXTRA_MODIFIED_ENTRY_ID, -1);
+			timeline = (TimelineFragment) fragmentManager.findFragmentByTag(TIMELINE_TAG_NAME);
+			timeline.updateListAfterCreate(id);
+		}
+	}
 }
+

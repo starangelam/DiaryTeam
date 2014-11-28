@@ -24,10 +24,10 @@ import ca.bcit.cst.team30.diary.model.Entry;
 
 public class CreateEntry extends Activity {
 	private EntryDataSource datasource;
-    String mCurrentPhotoPath;
-    String imageFileName;
-    File photoFile;
-    Uri selectedImage;
+    private String mCurrentPhotoPath;
+    private String imageFileName;
+    private File photoFile;
+    private Uri selectedImage;
 
 
 	@Override
@@ -146,10 +146,14 @@ public class CreateEntry extends Activity {
     public void createEntry() {
 		final EditText contentTitle;
         final EditText content;
+
 		final String result;
 		final String title;
 		final String imagePath;
+		final long id;
+
 		final Entry entry;
+		final Intent intentMessage;
 
 		contentTitle = (EditText) findViewById(R.id.composeTitle);
 		content = (EditText) findViewById(R.id.composeContent);
@@ -159,9 +163,12 @@ public class CreateEntry extends Activity {
         Log.d("LOG", "Title: " + title + " Content: " + result);
 
         entry = new Entry(title, result, imagePath);
-        datasource.createEntry(entry);
+        id = datasource.createEntry(entry);
 
-        finish();
+		intentMessage = new Intent();
+		intentMessage.putExtra(Main.EXTRA_MODIFIED_ENTRY_ID, id);
+		this.setResult(RESULT_OK, intentMessage);
+		finish();
     }
 
     //Receiving data back from the photo intent

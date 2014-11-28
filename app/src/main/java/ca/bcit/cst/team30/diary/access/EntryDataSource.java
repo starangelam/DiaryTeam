@@ -51,7 +51,7 @@ public class EntryDataSource {
 		dbHelper.close();
 	}
 
-	public void createEntry(final Entry entry) {
+	public long createEntry(final Entry entry) {
 		final String ISOdate = dateFormat.format(entry.getCreationDate());
 		final ContentValues values;
 		final long insertId;
@@ -74,6 +74,8 @@ public class EntryDataSource {
 				null);
 		cursor.moveToFirst();
 		cursor.close();
+
+		return insertId;
 	}
 
 	public void deleteEntry(final Entry entry) {
