@@ -2,8 +2,10 @@ package ca.bcit.cst.team30.diary;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,6 +87,9 @@ public class ViewEntry extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        } else if( id == R.id.action_edit ) {
+            editEntry();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -127,6 +132,18 @@ public class ViewEntry extends Activity {
             imageView.setImageResource(R.drawable.ic_launcher);
             return imageView;
         }
+    }
+
+    public void editEntry() {
+        Intent intent = new Intent(this, EditEntry.class);
+        intent.putExtra("id", entry.getId());
+        intent.putExtra("title", entry.getTitle());
+        intent.putExtra("content", entry.getContent());
+        intent.putExtra("image", entry.getFilePath());
+        Log.d("LOG", "Passing intent with title: " + entry.getTitle());
+        startActivity(intent);
+
+        finish();
     }
 
 
