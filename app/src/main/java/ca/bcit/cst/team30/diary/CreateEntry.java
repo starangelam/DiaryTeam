@@ -166,7 +166,7 @@ public class CreateEntry extends Activity {
         id = datasource.createEntry(entry);
 
 		intentMessage = new Intent();
-		intentMessage.putExtra(Main.EXTRA_MODIFIED_ENTRY_ID, id);
+		intentMessage.putExtra(TimelineFragment.EXTRA_ID, id);
 		this.setResult(RESULT_OK, intentMessage);
 		finish();
     }

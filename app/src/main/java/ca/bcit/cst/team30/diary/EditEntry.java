@@ -42,16 +42,16 @@ public class EditEntry extends Activity {
         Bundle bundle = getIntent().getExtras();
 
         entry = datasource.getEntry(bundle.getLong("id"));
-        Log.d("LOG", "Receiving intent with title: " + bundle.getString("title"));
+        Log.d("LOG", "Receiving intent with title: " + entry.getTitle());
 
         final EditText title = (EditText) findViewById(R.id.editTitle);
-        title.setText(bundle.getString("title"));
+        title.setText(entry.getTitle());
 
         final EditText content = (EditText) findViewById(R.id.editContent);
-        content.setText(bundle.getString("content"));
+        content.setText(entry.getContent());
 
 		final ImageView image = (ImageView) findViewById(R.id.editphoto);
-		final String imagePath = bundle.getString("image");
+		final String imagePath = entry.getFilePath();
 		if (imagePath != null) {
 			selectedImage = Uri.parse(imagePath);
 			image.setImageURI(selectedImage);
@@ -166,11 +166,12 @@ public class EditEntry extends Activity {
     public void editEntry() {
         final EditText contentTitle;
         final EditText content;
+
         final String result;
         final String title;
 		final String imagePath;
 
-        contentTitle = (EditText) findViewById(R.id.editTitle);
+		contentTitle = (EditText) findViewById(R.id.editTitle);
         content = (EditText) findViewById(R.id.editContent);
         result = content.getText().toString();
         title = contentTitle.getText().toString();
@@ -183,13 +184,14 @@ public class EditEntry extends Activity {
 
         datasource.editEntry(entry);
 
-        finish();
+		this.setResult(RESULT_OK);
+
+		finish();
     }
 
     //Receiving data back from the photo intent
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        Log.d("LOG", "I'm at the start!");
         ImageView imageview = (ImageView) findViewById(R.id.editphoto);
         switch(requestCode) {
             case 0:

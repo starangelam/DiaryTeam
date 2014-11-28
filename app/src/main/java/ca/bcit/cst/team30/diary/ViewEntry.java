@@ -1,11 +1,13 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +21,9 @@ import ca.bcit.cst.team30.diary.access.EntryDataSource;
 import ca.bcit.cst.team30.diary.model.Entry;
 
 public class ViewEntry extends Activity {
-    Integer[] imageIDs = {
+	private static final int REQUEST_CODE_EDIT_ENTRY = 1;
+
+	private Integer[] imageIDs = {
             R.drawable.ic_launcher,
             R.drawable.ic_launcher,
             R.drawable.ic_launcher,
@@ -31,28 +35,29 @@ public class ViewEntry extends Activity {
     private View view;
 
 	private EntryDataSource dataSource;
-	private Entry entry;
+	private long entryId;
+	private TextView title;
+	private TextView content;
+	private ImageView image;
+	private boolean isEntryModified;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entry);
 
+
 		dataSource = new EntryDataSource(this);
 		dataSource.open();
 
-		final long entryId = getIntent().getExtras().getLong(TimelineFragment.EXTRA_ID);
-		entry = dataSource.getEntry(entryId);
+		entryId = getIntent().getExtras().getLong(TimelineFragment.EXTRA_ID);
+        title = (TextView) findViewById(R.id.entry_title);
+        content = (TextView) findViewById(R.id.entry_content);
+		image = (ImageView) findViewById(R.id.entry_photo);
 
+		isEntryModified = false;
 
-
-        // Title
-        final TextView title = (TextView) findViewById(R.id.entry_title);
-        title.setText(entry.getTitle());
-
-        // Scrollable text content
-        final TextView content = (TextView) findViewById(R.id.entry_content);
-        content.setText(entry.getContent());
+		displayEntry();
 
         // Image
         /*try {
@@ -65,14 +70,21 @@ public class ViewEntry extends Activity {
             e.printStackTrace();
         }*/
 
-		final String imagePath = entry.getFilePath();
-		if (imagePath != null) {
-			Uri selectedImage = Uri.parse(imagePath);
-			ImageView image = (ImageView) findViewById(R.id.entry_photo);
-			image.setImageURI(selectedImage);
-		}
     }
 
+	private void displayEntry() {
+		final Entry entry;
+		final String imagePath;
+
+		entry = dataSource.getEntry(entryId);
+		title.setText(entry.getTitle());
+		content.setText(entry.getContent());
+		imagePath = entry.getFilePath();
+		if (imagePath != null) {
+			final Uri selectedImage = Uri.parse(imagePath);
+			image.setImageURI(selectedImage);
+		}
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -138,26 +150,30 @@ public class ViewEntry extends Activity {
 
     public void editEntry() {
         Intent intent = new Intent(this, EditEntry.class);
-        intent.putExtra("id", entry.getId());
-        intent.putExtra("title", entry.getTitle());
-        intent.putExtra("content", entry.getContent());
-        intent.putExtra("image", entry.getFilePath());
-        Log.d("LOG", "Passing intent with title: " + entry.getTitle());
-        startActivity(intent);
-
-        finish();
+        intent.putExtra("id", entryId);
+		startActivityForResult(intent, REQUEST_CODE_EDIT_ENTRY);
     }
 
-
 	@Override
-	public void onResume() {
-		dataSource.open();
-		super.onResume();
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d("debug", "result returned.");
+		if (requestCode == REQUEST_CODE_EDIT_ENTRY && resultCode == RESULT_OK) {
+			Log.d("debug", "edit entry successful.");
+			displayEntry();
+			isEntryModified = true;
+		}
 	}
 
 	@Override
-	public void onPause() {
-		dataSource.close();
-		super.onPause();
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK && isEntryModified)) {
+			final Intent intentMessage;
+
+			intentMessage = new Intent();
+			intentMessage.putExtra(TimelineFragment.EXTRA_ID, entryId);
+			this.setResult(RESULT_OK, intentMessage);
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
