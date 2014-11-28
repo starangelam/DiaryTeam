@@ -26,9 +26,7 @@ import ca.bcit.cst.team30.diary.model.Entry;
 public class EditEntry extends Activity {
 
     private EntryDataSource datasource;
-    private String mCurrentPhotoPath;
-    private String imageFileName;
-    private File photoFile;
+	private File photoFile;
     private Uri selectedImage;
     private Entry entry;
 
@@ -46,15 +44,18 @@ public class EditEntry extends Activity {
         entry = datasource.getEntry(bundle.getLong("id"));
         Log.d("LOG", "Receiving intent with title: " + bundle.getString("title"));
 
-        EditText title = (EditText) findViewById(R.id.editTitle);
+        final EditText title = (EditText) findViewById(R.id.editTitle);
         title.setText(bundle.getString("title"));
 
-        EditText content = (EditText) findViewById(R.id.editContent);
+        final EditText content = (EditText) findViewById(R.id.editContent);
         content.setText(bundle.getString("content"));
 
-        ImageView image = (ImageView) findViewById(R.id.editphoto);
-        selectedImage = Uri.parse(bundle.getString("image"));
-        image.setImageURI(selectedImage);
+		final ImageView image = (ImageView) findViewById(R.id.editphoto);
+		final String imagePath = bundle.getString("image");
+		if (imagePath != null) {
+			selectedImage = Uri.parse(imagePath);
+			image.setImageURI(selectedImage);
+		}
 
     }
 
@@ -148,15 +149,15 @@ public class EditEntry extends Activity {
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        imageFileName = "JPEG_" + timeStamp + "_";
+        final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+		final String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
 
 
         // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+		final String mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         Log.d("LOG", mCurrentPhotoPath);
 
         return image;
@@ -167,6 +168,7 @@ public class EditEntry extends Activity {
         final EditText content;
         final String result;
         final String title;
+		final String imagePath;
 
         contentTitle = (EditText) findViewById(R.id.editTitle);
         content = (EditText) findViewById(R.id.editContent);
@@ -175,7 +177,9 @@ public class EditEntry extends Activity {
 
         entry.setTitle(title);
         entry.setContent(result);
-        entry.setFilePath(selectedImage.toString());
+
+		imagePath = (selectedImage == null) ? null : selectedImage.toString();
+        entry.setFilePath(imagePath);
 
         datasource.editEntry(entry);
 

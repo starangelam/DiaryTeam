@@ -65,10 +65,12 @@ public class ViewEntry extends Activity {
             e.printStackTrace();
         }*/
 
-        Uri selectedImage = Uri.parse(entry.getFilePath());
-        ImageView image = (ImageView) findViewById(R.id.entry_photo);
-        image.setImageURI(selectedImage);
-
+		final String imagePath = entry.getFilePath();
+		if (imagePath != null) {
+			Uri selectedImage = Uri.parse(imagePath);
+			ImageView image = (ImageView) findViewById(R.id.entry_photo);
+			image.setImageURI(selectedImage);
+		}
     }
 
 
