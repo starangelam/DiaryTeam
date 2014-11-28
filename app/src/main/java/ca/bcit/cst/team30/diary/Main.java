@@ -141,7 +141,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 			fragmentManager = getFragmentManager();
 			id = data.getLongExtra(TimelineFragment.EXTRA_ID, -1);
 			timeline = (TimelineFragment) fragmentManager.findFragmentByTag(TimelineFragment.TIMELINE_TAG_NAME);
-			timeline.updateList(id, TimelineFragment.CREATE);
+			timeline.updateList(id);
 		}
 	}
 }

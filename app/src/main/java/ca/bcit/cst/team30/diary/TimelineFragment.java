@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import ca.bcit.cst.team30.diary.access.EntryDataSource;
@@ -16,7 +14,6 @@ import ca.bcit.cst.team30.diary.adapter.EntryListAdapter;
 import ca.bcit.cst.team30.diary.adapter.SectionsPagerAdapter;
 import ca.bcit.cst.team30.diary.model.Entry;
 
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -28,9 +25,6 @@ public class TimelineFragment extends ListFragment {
 
 	private static final int REQUEST_CODE_VIEW_ENTRY = 229;
 
-	public static final int CREATE = 0;
-	public static final int UPDATE = 1;
-	public static final int DELETE = 2;
 
 	private EntryDataSource dataSource;
 	private EntryListAdapter adapter;
@@ -79,18 +73,15 @@ public class TimelineFragment extends ListFragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d("debug", "result returned.");
 		if (requestCode == REQUEST_CODE_VIEW_ENTRY && resultCode == Activity.RESULT_OK) {
-			updateList(-1, UPDATE);
+			updateList(); // or delete doesn't matter
 		}
 	}
 
-	public void updateList(final long id, final int action) {
-		switch (action) {
-			case CREATE:
-				adapter.add(dataSource.getEntry(id));
-				break;
-			case UPDATE:
-				adapter.update(dataSource.getAllEntries());
-				break;
-		}
+	public void updateList(final long id) {
+		adapter.add(dataSource.getEntry(id));
+	}
+
+	public void updateList() {
+		adapter.update(dataSource.getAllEntries());
 	}
 }

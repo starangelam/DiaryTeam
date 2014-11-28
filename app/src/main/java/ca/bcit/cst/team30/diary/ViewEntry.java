@@ -99,16 +99,24 @@ public class ViewEntry extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        } else if( id == R.id.action_edit ) {
-            editEntry();
-            return true;
-        }
+		switch (id) {
+			case R.id.action_edit:
+				editEntry();
+				break;
+			case R.id.action_delete:
+				deleteEntry();
+				break;
+		}
         return super.onOptionsItemSelected(item);
     }
 
-    public class ImageAdapter extends BaseAdapter
+	private void deleteEntry() {
+		dataSource.deleteEntry(entryId);
+		this.setResult(RESULT_OK);
+		finish();
+	}
+
+	public class ImageAdapter extends BaseAdapter
     {
         private Context context;
 
@@ -167,11 +175,7 @@ public class ViewEntry extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK && isEntryModified)) {
-			final Intent intentMessage;
-
-			intentMessage = new Intent();
-			intentMessage.putExtra(TimelineFragment.EXTRA_ID, entryId);
-			this.setResult(RESULT_OK, intentMessage);
+			this.setResult(RESULT_OK);
 			finish();
 		}
 		return super.onKeyDown(keyCode, event);
