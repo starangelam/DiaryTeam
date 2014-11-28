@@ -23,17 +23,6 @@ import ca.bcit.cst.team30.diary.model.Entry;
 public class ViewEntry extends Activity {
 	private static final int REQUEST_CODE_EDIT_ENTRY = 1;
 
-	private Integer[] imageIDs = {
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher
-    };
-    private View view;
-
 	private EntryDataSource dataSource;
 	private long entryId;
 	private TextView title;
@@ -58,18 +47,6 @@ public class ViewEntry extends Activity {
 		isEntryModified = false;
 
 		displayEntry();
-
-        // Image
-        /*try {
-            //ContextWrapper cw = new ContextWrapper(getApplicationContext());
-            /*File file = new File(entry.getFilePath());
-            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-            ImageView image = (ImageView) findViewById(R.id.entry_photo);
-            image.setImageBitmap(bitmap);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }*/
-
     }
 
 	private void displayEntry() {
@@ -115,46 +92,6 @@ public class ViewEntry extends Activity {
 		this.setResult(RESULT_OK);
 		finish();
 	}
-
-	public class ImageAdapter extends BaseAdapter
-    {
-        private Context context;
-
-        public ImageAdapter(Context c)
-        {
-            context = c;
-        }
-
-        //---returns the number of images---
-        public int getCount() {
-            return imageIDs.length;
-        }
-
-        //---returns the ID of an item---
-        public Object getItem(int position) {
-            return position;
-        }
-
-        public long getItemId(int position) {
-            return position;
-        }
-
-        //---returns an ImageView view---
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            ImageView imageView;
-            if (convertView == null) {
-                imageView = new ImageView(context);
-                imageView.setLayoutParams(new GridView.LayoutParams(185, 185));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(5, 5, 5, 5);
-            } else {
-                imageView = (ImageView) convertView;
-            }
-            imageView.setImageResource(R.drawable.ic_launcher);
-            return imageView;
-        }
-    }
 
     public void editEntry() {
         Intent intent = new Intent(this, EditEntry.class);
