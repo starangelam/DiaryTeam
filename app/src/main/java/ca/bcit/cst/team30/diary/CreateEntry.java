@@ -148,15 +148,17 @@ public class CreateEntry extends Activity {
         final EditText content;
 		final String result;
 		final String title;
+		final String imagePath;
 		final Entry entry;
 
 		contentTitle = (EditText) findViewById(R.id.composeTitle);
 		content = (EditText) findViewById(R.id.composeContent);
         result = content.getText().toString();
         title = contentTitle.getText().toString();
+		imagePath = (selectedImage == null) ? null : selectedImage.toString();
         Log.d("LOG", "Title: " + title + " Content: " + result);
 
-        entry = new Entry(title, result, selectedImage.toString());
+        entry = new Entry(title, result, imagePath);
         datasource.createEntry(entry);
 
         finish();
