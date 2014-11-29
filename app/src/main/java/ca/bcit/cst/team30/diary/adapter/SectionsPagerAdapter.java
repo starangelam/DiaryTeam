@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
+import ca.bcit.cst.team30.diary.AndroidfyFragment;
 import ca.bcit.cst.team30.diary.R;
 import ca.bcit.cst.team30.diary.TimelineFragment;
 
@@ -33,7 +34,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			case TIMELINE_POS:
 				return new TimelineFragment();
 			case 1:
-				return new TimelineFragment();
+				return new AndroidfyFragment();
 		}
 		return null;
 	}
