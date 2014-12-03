@@ -87,7 +87,19 @@ public class Entry {
 	}
 
     public String getCreationDateString(){
-        String DATE_FORMAT_NOW = "d MMM yyyy  h:m a";
+        String DATE_FORMAT_NOW = "d MMM yyyy  h:mm a";
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        String datetext = sdf.format(creationDate);
+        try{
+            Date date2 = sdf.parse(datetext);
+        }catch(Exception e){
+            System.out.println("Exception converting date to string");
+        }
+        return datetext;
+    }
+
+    public String getTimeString(){
+        String DATE_FORMAT_NOW = "h:mm a";
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
         String datetext = sdf.format(creationDate);
         try{

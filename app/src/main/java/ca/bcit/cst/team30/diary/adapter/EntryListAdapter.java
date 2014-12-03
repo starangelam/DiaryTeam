@@ -4,15 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import ca.bcit.cst.team30.diary.R;
-import ca.bcit.cst.team30.diary.model.Entry;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import ca.bcit.cst.team30.diary.R;
+import ca.bcit.cst.team30.diary.model.Entry;
 
 
 	/* 	TODO
@@ -89,6 +89,7 @@ public class EntryListAdapter extends BaseAdapter {
 		final ViewHolder viewHolder;
 
 		final String weekText;
+        final String timeText;
 		final String monthText;
 		final String titleText;
 		final String bodyText;
@@ -100,6 +101,7 @@ public class EntryListAdapter extends BaseAdapter {
 			final LayoutInflater inflater = LayoutInflater.from(mContext);
 			convertView = inflater.inflate(R.layout.component_entry_preview, parent, false);
 
+            viewHolder.timeText = (TextView) convertView.findViewById(R.id.entry_preview_time_of_day);
 			viewHolder.dayOfWeek = (TextView) convertView.findViewById(R.id.entry_preview_day_of_week);
 			viewHolder.dayOfMonth = (TextView) convertView.findViewById(R.id.entry_preview_day_of_month);
 			viewHolder.title = (TextView) convertView.findViewById(R.id.entry_preview_title);
@@ -110,11 +112,13 @@ public class EntryListAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
+        timeText = entry.getTimeString();
 		weekText = entry.getDayOfWeek().toUpperCase();
 		monthText = Integer.toString(entry.getDayOfMoth());
 		titleText = truncatedText(entry.getTitle(), MAX_CHAR_PER_LINE);
 		bodyText = truncatedText(entry.getContent(), MAX_CHAR_PER_LINE * MAX_LINES_IN_BODY);
 
+        viewHolder.timeText.setText(timeText);
 		viewHolder.dayOfWeek.setText(weekText);
 		viewHolder.dayOfMonth.setText(monthText);
 		viewHolder.title.setText(titleText);
@@ -143,5 +147,6 @@ public class EntryListAdapter extends BaseAdapter {
 		TextView dayOfMonth;
 		TextView title;
 		TextView body;
+        TextView timeText;
 	}
 }

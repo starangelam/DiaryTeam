@@ -20,9 +20,20 @@
 				style="@style/entry.preview.highlight"
 				android:textColor="@color/complementary"
 				android:text="MON" />
+
+
+            <TextView
+                android:id="@+id/entry_preview_time_of_day"
+                style="@style/entry.preview.highlight"
+                android:textSize="10sp"
+                android:textColor="@color/complementary"
+                android:padding="0dp"
+                android:text="1:29 PM" />
+
 			<TextView
 				android:id="@+id/entry_preview_day_of_month"
 				style="@style/entry.preview.highlight"
+                android:layout_marginTop="-8dp"
 				android:textSize="36sp"
 				android:text="21" />
 
