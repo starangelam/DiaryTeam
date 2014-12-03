@@ -17,6 +17,7 @@
         android:orientation="vertical"
         android:layout_marginBottom="10dp">
         <TextView
+            android:id="@+id/editdatebar"
             android:text="September, 2014"
             android:textStyle="bold"
             android:textColor="#FFFFFF"

@@ -1,8 +1,6 @@
 package ca.bcit.cst.team30.diary;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,10 +8,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,6 +48,11 @@ public class ViewEntry extends Activity {
 		final String imagePath;
 
 		entry = dataSource.getEntry(entryId);
+
+        String datetext = entry.getCreationDateString();
+        TextView t =(TextView)findViewById(R.id.viewdatebar);
+        t.setText(datetext);
+
 		title.setText(entry.getTitle());
 		content.setText(entry.getContent());
 		imagePath = entry.getFilePath();

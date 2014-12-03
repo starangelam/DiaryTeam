@@ -44,7 +44,7 @@ public class CreateEntry extends Activity {
         //Takes creation date and converts to a string to display
         entry = new Entry();
         String datetext = entry.getCreationDateString();
-        TextView t =(TextView)findViewById(R.id.creationdate);
+        TextView t =(TextView)findViewById(R.id.creationdatebar);
         t.setText(datetext);
 
     }

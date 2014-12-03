@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +57,10 @@ public class EditEntry extends Activity {
 			selectedImage = Uri.parse(imagePath);
 			image.setImageURI(selectedImage);
 		}
+
+        String datetext = entry.getCreationDateString();
+        TextView t =(TextView)findViewById(R.id.editdatebar);
+        t.setText(datetext);
 
     }
 
