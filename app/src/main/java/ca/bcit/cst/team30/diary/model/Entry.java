@@ -1,5 +1,6 @@
 package ca.bcit.cst.team30.diary.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -84,6 +85,18 @@ public class Entry {
 		this.creationDate = creationDate;
 		cal.setTime(creationDate);
 	}
+
+    public String getCreationDateString(){
+        String DATE_FORMAT_NOW = "d MMM yyyy  h:m a";
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        String datetext = sdf.format(creationDate);
+        try{
+            Date date2 = sdf.parse(datetext);
+        }catch(Exception e){
+            System.out.println("Exception converting date to string");
+        }
+        return datetext;
+    }
 
     public String getFilePath() { return filePath; }
 

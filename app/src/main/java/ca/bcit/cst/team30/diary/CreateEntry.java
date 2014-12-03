@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class CreateEntry extends Activity {
     private String imageFileName;
     private File photoFile;
     private Uri selectedImage;
+    private Entry entry;
 
 
 	@Override
@@ -37,6 +39,14 @@ public class CreateEntry extends Activity {
 
 		datasource = new EntryDataSource(this);
 		datasource.open();
+
+
+        //Takes creation date and converts to a string to display
+        entry = new Entry();
+        String datetext = entry.getCreationDateString();
+        TextView t =(TextView)findViewById(R.id.creationdate);
+        t.setText(datetext);
+
     }
 
 	@Override
@@ -144,6 +154,7 @@ public class CreateEntry extends Activity {
     }
 
     public void createEntry() {
+
 		final EditText contentTitle;
         final EditText content;
 
@@ -152,7 +163,7 @@ public class CreateEntry extends Activity {
 		final String imagePath;
 		final long id;
 
-		final Entry entry;
+
 		final Intent intentMessage;
 
 		contentTitle = (EditText) findViewById(R.id.composeTitle);
@@ -162,7 +173,10 @@ public class CreateEntry extends Activity {
 		imagePath = (selectedImage == null) ? null : selectedImage.toString();
         Log.d("LOG", "Title: " + title + " Content: " + result);
 
-        entry = new Entry(title, result, imagePath);
+        entry.setTitle(title);
+        entry.setContent(result);
+        entry.setFilePath(imagePath);
+
         id = datasource.createEntry(entry);
 
 		intentMessage = new Intent();
