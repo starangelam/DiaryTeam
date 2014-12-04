@@ -2,12 +2,16 @@
 <!-- TODO variablize bg color, font etc-->
 <!-- TODO remove placeholder text -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
 			  android:layout_width="match_parent"
-			  android:layout_height="wrap_content"
-			  android:background="#666666"
-			  android:orientation="vertical">
+			  android:layout_height="wrap_content">
 
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#666666">
 		<TextView
+			android:id="@+id/entry_preview_month"
 			android:text="September, 2014"
 			android:textStyle="bold"
 			android:textColor="#FFFFFF"
@@ -15,5 +19,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:padding="5dp"/>
+	</LinearLayout>
+
+	<include layout="@layout/component_entry_preview"/>
 
 </LinearLayout>

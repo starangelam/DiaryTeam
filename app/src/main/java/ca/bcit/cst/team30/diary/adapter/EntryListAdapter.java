@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -102,6 +103,7 @@ public class EntryListAdapter extends BaseAdapter {
 			final LayoutInflater inflater = LayoutInflater.from(mContext);
 			convertView = inflater.inflate(R.layout.component_entry_preview, parent, false);
 
+			viewHolder.monthStrip = (ViewGroup) convertView.findViewById(R.id.entry_preview_month_highlight);
             viewHolder.timeText = (TextView) convertView.findViewById(R.id.entry_preview_time_of_day);
 			viewHolder.dayOfWeek = (TextView) convertView.findViewById(R.id.entry_preview_day_of_week);
 			viewHolder.dayOfMonth = (TextView) convertView.findViewById(R.id.entry_preview_day_of_month);
@@ -131,6 +133,12 @@ public class EntryListAdapter extends BaseAdapter {
 			viewHolder.dayOfWeek.setTextColor(Color.GRAY);
 		}
 
+		if ( entry.getMonth() % 2 == 0 ) {
+			viewHolder.monthStrip.setBackgroundResource(R.color.Orange);
+		} else {
+			viewHolder.monthStrip.setBackgroundResource(R.color.CadetBlue);
+		}
+
 		return convertView;
 	}
 
@@ -155,5 +163,6 @@ public class EntryListAdapter extends BaseAdapter {
 		TextView title;
 		TextView body;
         TextView timeText;
+		ViewGroup monthStrip;
 	}
 }

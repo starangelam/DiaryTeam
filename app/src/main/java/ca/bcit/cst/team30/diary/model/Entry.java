@@ -133,6 +133,10 @@ public class Entry {
 		return android.text.format.DateFormat.format("EEE", creationDate).toString();
 	}
 
+	public int getMonth() {
+		return cal.get(Calendar.MONTH);
+	}
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();

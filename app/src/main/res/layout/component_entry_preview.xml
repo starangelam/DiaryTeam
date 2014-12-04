@@ -8,6 +8,14 @@
 			  android:layout_width="match_parent"
 			  android:layout_height="@dimen/entry_preview_height">
 
+		<LinearLayout
+			android:id="@+id/entry_preview_month_highlight"
+			android:layout_width="5dp"
+			android:layout_height="match_parent"
+			android:background="@color/CadetBlue"
+			android:orientation="horizontal"
+			/>
+
 		<!-- Date Block -->
 		<LinearLayout
 			android:layout_width="@dimen/entry_preview_height"
