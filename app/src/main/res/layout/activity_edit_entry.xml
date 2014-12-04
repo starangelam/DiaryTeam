@@ -16,9 +16,10 @@
         android:background="#666666"
         android:orientation="vertical"
         android:layout_marginBottom="10dp">
-        <TextView
+        <EditText
             android:id="@+id/editdatebar"
             android:text="September, 2014"
+			android:singleLine="true"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:gravity="center"
@@ -31,11 +32,11 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/editTitle"
             android:singleLine="true"
             android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editTitle"
             android:background="#F4F4EF"
             android:layout_marginBottom="10dp"/>
 

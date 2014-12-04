@@ -9,6 +9,8 @@ import java.util.Date;
  */
 public class Entry {
 
+	public static final String DATE_FORMAT_NOW = "d MMM yyyy  h:mm a";
+
 	private static String DaysOfWeek[] = {"SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"};
 	private Calendar cal = Calendar.getInstance();
 	/**
@@ -87,7 +89,6 @@ public class Entry {
 	}
 
     public String getCreationDateString(){
-        String DATE_FORMAT_NOW = "d MMM yyyy  h:mm a";
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
         String datetext = sdf.format(creationDate);
         try{

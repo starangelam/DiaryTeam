@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -17,9 +18,11 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.widget.Toast;
 import ca.bcit.cst.team30.diary.access.EntryDataSource;
 import ca.bcit.cst.team30.diary.model.Entry;
 
@@ -171,13 +174,32 @@ public class EditEntry extends Activity {
     public void editEntry() {
         final EditText contentTitle;
         final EditText content;
+		final TextView dateText;
 
+		final String rawDate;
+		final Date date;
         final String result;
         final String title;
 		final String imagePath;
 
+		dateText = (TextView) findViewById(R.id.editdatebar);
+		rawDate = dateText.getText().toString();
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat(Entry.DATE_FORMAT_NOW);
+			date = sdf.parse(rawDate);
+			entry.setCreationDate(date);
+
+		} catch (ParseException pe) {
+			Toast toast  = Toast.makeText(this, "date should be in format of " + Entry.DATE_FORMAT_NOW, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			pe.printStackTrace();
+			return;
+		}
+
 		contentTitle = (EditText) findViewById(R.id.editTitle);
         content = (EditText) findViewById(R.id.editContent);
+
         result = content.getText().toString();
         title = contentTitle.getText().toString();
 
