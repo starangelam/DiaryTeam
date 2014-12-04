@@ -1,6 +1,7 @@
 package ca.bcit.cst.team30.diary.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,12 @@ public class EntryListAdapter extends BaseAdapter {
 		viewHolder.dayOfMonth.setText(monthText);
 		viewHolder.title.setText(titleText);
 		viewHolder.body.setText(bodyText);
+
+		if (weekText.equals("SUN")) {
+			viewHolder.dayOfWeek.setTextColor(Color.RED);
+		} else {
+			viewHolder.dayOfWeek.setTextColor(Color.GRAY);
+		}
 
 		return convertView;
 	}
