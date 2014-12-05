@@ -193,9 +193,11 @@ public class CreateEntry extends Activity {
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
-                    selectedImage = Uri.fromFile(photoFile);
-                    imageview.setImageURI(selectedImage);
-                    Log.d("LOG", "I'm at case 0!");
+					if (photoFile != null) {
+						selectedImage = Uri.fromFile(photoFile);
+						imageview.setImageURI(selectedImage);
+						Log.d("LOG", "I'm at case 0!");
+					}
                 }
 
                 break;
