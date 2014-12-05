@@ -190,6 +190,7 @@ public class EditEntry extends Activity {
 			entry.setCreationDate(date);
 
 		} catch (ParseException pe) {
+			dateText.setText(entry.getCreationDateString());
 			Toast toast  = Toast.makeText(this, "date should be in format of " + Entry.DATE_FORMAT_NOW, Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
