@@ -137,6 +137,10 @@ public class Entry {
 		return cal.get(Calendar.MONTH);
 	}
 
+	public String getMonthString() {
+		return android.text.format.DateFormat.format("MMM", creationDate).toString();
+	}
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();

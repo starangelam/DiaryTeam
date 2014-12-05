@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -93,6 +95,7 @@ public class EntryListAdapter extends BaseAdapter {
 		final String weekText;
         final String timeText;
 		final String monthText;
+		final String dayOfMonthText;
 		final String titleText;
 		final String bodyText;
 
@@ -104,6 +107,7 @@ public class EntryListAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.component_entry_preview, parent, false);
 
 			viewHolder.monthStrip = (ViewGroup) convertView.findViewById(R.id.entry_preview_month_highlight);
+			viewHolder.monthText = (TextView) convertView.findViewById(R.id.entry_preview_month_text);
             viewHolder.timeText = (TextView) convertView.findViewById(R.id.entry_preview_time_of_day);
 			viewHolder.dayOfWeek = (TextView) convertView.findViewById(R.id.entry_preview_day_of_week);
 			viewHolder.dayOfMonth = (TextView) convertView.findViewById(R.id.entry_preview_day_of_month);
@@ -116,14 +120,16 @@ public class EntryListAdapter extends BaseAdapter {
 		}
 
         timeText = entry.getTimeString();
+		monthText = entry.getMonthString();
 		weekText = entry.getDayOfWeek().toUpperCase();
-		monthText = Integer.toString(entry.getDayOfMoth());
+		dayOfMonthText = Integer.toString(entry.getDayOfMoth());
 		titleText = truncatedText(entry.getTitle(), MAX_CHAR_PER_LINE);
 		bodyText = truncatedText(entry.getContent(), MAX_CHAR_PER_LINE * MAX_LINES_IN_BODY);
 
         viewHolder.timeText.setText(timeText);
 		viewHolder.dayOfWeek.setText(weekText);
-		viewHolder.dayOfMonth.setText(monthText);
+		viewHolder.dayOfMonth.setText(dayOfMonthText);
+		viewHolder.monthText.setText(monthText);
 		viewHolder.title.setText(titleText);
 		viewHolder.body.setText(bodyText);
 
@@ -164,5 +170,6 @@ public class EntryListAdapter extends BaseAdapter {
 		TextView body;
         TextView timeText;
 		ViewGroup monthStrip;
+		TextView monthText;
 	}
 }
